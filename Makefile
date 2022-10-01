@@ -4,9 +4,18 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
 
-SRCS = main_subj.cpp
-HEADERS =	vector.hpp utils/enable_if.hpp utils/equal.hpp utils/is_integral.hpp utils/iterator.hpp utils/iterators_traits.hpp \
-			utils/other_utils.hpp utils/pair.hpp utils/reverse_iterator.hpp
+SRCS = main.cpp
+HEADERS =	iterator.hpp \
+			map.hpp \
+			pair.hpp \
+			red_black_tree.hpp \
+			red_black_tree_utils.hpp \
+			set.hpp \
+			stack.hpp \
+			type_traits.hpp \
+			utils.hpp \
+			vector.hpp
+
 OBJS = $(SRCS:%.cpp=%.o)
 
 $(NAME):	$(OBJS) $(HEADERS) Makefile
