@@ -110,7 +110,7 @@ static void vector_test() {
 }
 
 template<class T>
-static void print_stl_vector(const std::vector <T> &v) {
+static void print_stl_vector(const std::vector<T> &v) {
 	for (int i = 0; i < v.size(); i++) {
 		std::cout << v[i] << " ";
 	}
@@ -263,7 +263,7 @@ static void stl_stack_test() {
 
 	clock_t stack_end = clock();
 	printf("Execution time for stl stack: %.2fms\n",
-	       (double) (stack_end - stack_start) / CLOCKS_PER_SEC * 1000);
+		   (double) (stack_end - stack_start) / CLOCKS_PER_SEC * 1000);
 }
 
 // Map Test
@@ -289,11 +289,11 @@ void map_test() {
 	std::cout << "m1: ";
 	print_map(m1);
 	std::cout << "insert \"eee = 55555\" successfully: " <<
-		(m1.insert(ft::make_pair("eee", 55555)).second == 1 ?  "true" : "false") << std::endl;
+			  (m1.insert(ft::make_pair("eee", 55555)).second == 1 ? "true" : "false") << std::endl;
 	std::cout << "m1: ";
 	print_map(m1);
 	std::cout << "insert \"eee = 0\" successfully: " <<
-	          (m1.insert(ft::make_pair("eee", 0)).second == 1 ?  "true" : "false") << std::endl;
+			  (m1.insert(ft::make_pair("eee", 0)).second == 1 ? "true" : "false") << std::endl;
 	std::cout << "m1: ";
 	print_map(m1);
 
@@ -376,11 +376,11 @@ void stl_map_test() {
 	std::cout << "m1: ";
 	print_stl_map(m1);
 	std::cout << "insert \"eee = 55555\" successfully: " <<
-	          (m1.insert(std::make_pair("eee", 55555)).second == 1 ?  "true" : "false") << std::endl;
+			  (m1.insert(std::make_pair("eee", 55555)).second == 1 ? "true" : "false") << std::endl;
 	std::cout << "m1: ";
 	print_stl_map(m1);
 	std::cout << "insert \"eee = 0\" successfully: " <<
-	          (m1.insert(std::make_pair("eee", 55555)).second == 1 ?  "true" : "false") << std::endl;
+			  (m1.insert(std::make_pair("eee", 55555)).second == 1 ? "true" : "false") << std::endl;
 	std::cout << "m1: ";
 	print_stl_map(m1);
 
@@ -440,7 +440,7 @@ void stl_map_test() {
 
 	clock_t map_end = clock();
 	printf("Execution time for stl map: %.2fms\n",
-	       (double) (map_end - map_start) / CLOCKS_PER_SEC * 1000);
+		   (double) (map_end - map_start) / CLOCKS_PER_SEC * 1000);
 }
 
 // Set Test
@@ -496,7 +496,7 @@ void set_test() {
 
 	std::cout << "s1 == s3: " << (s1 == s3 ? "true" : "false") << std::endl;
 	std::cout << "s1 < s3: " << (s1 < s3 ? "true\n" : "false\n") << std::endl;
-	
+
 	for (int i = 0; i < 100000; i++) {
 		s2.insert(i * 2);
 	}
@@ -575,7 +575,7 @@ void stl_set_test() {
 
 	clock_t set_end = clock();
 	printf("Execution time for stl set: %.2fms\n",
-	       (double) (set_end - set_start) / CLOCKS_PER_SEC * 1000);
+		   (double) (set_end - set_start) / CLOCKS_PER_SEC * 1000);
 }
 
 int main() {

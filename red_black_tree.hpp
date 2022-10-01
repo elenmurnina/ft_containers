@@ -11,31 +11,31 @@ namespace ft {
 		Insert
 	};
 
-	template <class T, class Compare = std::less<T>, class Allocator = std::allocator<T> >
+	template<class T, class Compare = std::less<T>, class Allocator = std::allocator<T> >
 	class RBTree {
 	public:
-		typedef T							value_type;
-		typedef std::size_t					size_type;
-		typedef Allocator					allocator_type;
-		typedef Compare						comparator_type;
-		typedef ft::RBTNode<T>				Node;
+		typedef T value_type;
+		typedef std::size_t size_type;
+		typedef Allocator allocator_type;
+		typedef Compare comparator_type;
+		typedef ft::RBTNode<T> Node;
 
-		typedef ft::RBTreeIterator<T>		iterator;
-		typedef ft::RBTreeConstIterator<T>	const_iterator;
+		typedef ft::RBTreeIterator<T> iterator;
+		typedef ft::RBTreeConstIterator<T> const_iterator;
 
-		typedef ft::RBTreeReverseIterator<T>		reverse_iterator;
-		typedef ft::RBTreeConstReverseIterator<T>	const_reverse_iterator;
+		typedef ft::RBTreeReverseIterator<T> reverse_iterator;
+		typedef ft::RBTreeConstReverseIterator<T> const_reverse_iterator;
 
 		typedef typename allocator_type::template rebind<Node>::other node_allocator_type;
 
 	private:
-		Node			*_root;
-		size_type		_size;
-		allocator_type	_alloc;
-		comparator_type	_comp;
+		Node *_root;
+		size_type _size;
+		allocator_type _alloc;
+		comparator_type _comp;
 
 	public:
-		RBTree(): _root(NULL), _size(0), _alloc() {
+		RBTree() : _root(NULL), _size(0), _alloc() {
 		}
 
 		explicit RBTree(const Compare &comp, const Allocator &alloc = Allocator()) :
@@ -48,7 +48,7 @@ namespace ft {
 			clear();
 		};
 
-		RBTree &operator = (const RBTree &other);
+		RBTree &operator=(const RBTree &other);
 
 		allocator_type get_allocator() const {
 			return _alloc;
@@ -124,29 +124,36 @@ namespace ft {
 		}
 
 		// Insert
-		ft::pair<iterator,bool> insert(const value_type &value, OperType type);
+		ft::pair<iterator, bool> insert(const value_type &value, OperType type);
+
 		iterator insert(iterator, const value_type &value);
 
-		template< class InputIterator >
+		template<class InputIterator>
 		void insert(typename ft::enable_if<!ft::is_integral<InputIterator>::value,
-					InputIterator>::type first, InputIterator last);
+				InputIterator>::type first, InputIterator last);
 
 		// Delete
-		void 			erase(iterator pos);
-		void 			erase(iterator first, iterator last);
-		size_type 		erase(const value_type &key);
+		void erase(iterator pos);
+
+		void erase(iterator first, iterator last);
+
+		size_type erase(const value_type &key);
 
 		// Search
-		iterator		find(const value_type &key);
-		const_iterator	find(const value_type &key) const;
+		iterator find(const value_type &key);
 
-		ft::pair<iterator,iterator> equal_range(const value_type &key);
-		ft::pair<const_iterator,const_iterator> equal_range(const value_type &key) const;
+		const_iterator find(const value_type &key) const;
+
+		ft::pair<iterator, iterator> equal_range(const value_type &key);
+
+		ft::pair<const_iterator, const_iterator> equal_range(const value_type &key) const;
 
 		iterator lower_bound(const value_type &key);
+
 		const_iterator lower_bound(const value_type &key) const;
 
 		iterator upper_bound(const value_type &key);
+
 		const_iterator upper_bound(const value_type &key) const;
 
 		void swap(RBTree &other) {
@@ -160,36 +167,45 @@ namespace ft {
 		}
 
 	private:
-		Node		*search(const T &key);
-		Node		*search(Node *node, const T &key) const;
+		Node *search(const T &key);
 
-		void		insert_node(Node *&root, Node *node);
-		void		fix_insert_tree(Node *&root, Node *node);
+		Node *search(Node *node, const T &key) const;
 
-		void		rotate_left(Node* &root, Node *x);
-		void		rotate_right(Node* &root, Node *x);
+		void insert_node(Node *&root, Node *node);
 
-		size_type	remove_node(const T &key);
-		void		remove_node(Node *&root, Node *node);
-		void		fix_remove_tree(Node* &root, Node *node, Node *parent);
-		void		swap_nodes(Node *n1, Node *n2);
+		void fix_insert_tree(Node *&root, Node *node);
 
-		Node		*create_new_node(const T &value, RBTColor color = Red,
-								 Node *parent = NULL, Node *left = NULL, Node *right = NULL);
-		void		make_copy(Node *&current, Node *parent, Node *child);
-		void		destroy_tree(Node* &node);
-		void		destroy_node(Node *node);
+		void rotate_left(Node *&root, Node *x);
+
+		void rotate_right(Node *&root, Node *x);
+
+		size_type remove_node(const T &key);
+
+		void remove_node(Node *&root, Node *node);
+
+		void fix_remove_tree(Node *&root, Node *node, Node *parent);
+
+		void swap_nodes(Node *n1, Node *n2);
+
+		Node *create_new_node(const T &value, RBTColor color = Red,
+							  Node *parent = NULL, Node *left = NULL, Node *right = NULL);
+
+		void make_copy(Node *&current, Node *parent, Node *child);
+
+		void destroy_tree(Node *&node);
+
+		void destroy_node(Node *node);
 	};
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	RBTree<T, Compare, Allocator>::RBTree(const RBTree &other):
-		_alloc(other._alloc), _comp(other._comp), _root(NULL) {
+			_alloc(other._alloc), _comp(other._comp), _root(NULL) {
 		make_copy(_root, NULL, other._root);
 		_size = other._size;
 	}
 
-	template <class T, class Compare, class Allocator>
-	RBTree<T, Compare, Allocator> &RBTree<T, Compare, Allocator>::operator = (const RBTree &other) {
+	template<class T, class Compare, class Allocator>
+	RBTree<T, Compare, Allocator> &RBTree<T, Compare, Allocator>::operator=(const RBTree &other) {
 		Node *tmp = NULL;
 		make_copy(tmp, NULL, other._root);
 		destroy_tree(_root);
@@ -198,16 +214,16 @@ namespace ft {
 		return *this;
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::Node
-		*RBTree<T, Compare, Allocator>::create_new_node(const T &value, RBTColor color,
-		Node *parent, Node *left, Node *right) {
+	*RBTree<T, Compare, Allocator>::create_new_node(const T &value, RBTColor color,
+													Node *parent, Node *left, Node *right) {
 		Node *node = node_allocator_type().allocate(1);
 		node_allocator_type().construct(node, Node(value, color, left, right, parent));
 		return node;
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::make_copy(Node *&current, Node *parent, Node *child) {
 		if (child == NULL) {
 			return;
@@ -217,14 +233,14 @@ namespace ft {
 		make_copy(current->right, current, child->right);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::destroy_node(Node *node) {
 		node_allocator_type().destroy(node);
 		node_allocator_type().deallocate(node, 1);
 		_size--;
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::destroy_tree(Node *&node) {
 		if (node == NULL) {
 			return;
@@ -235,7 +251,7 @@ namespace ft {
 	}
 
 	// Insert
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::swap_nodes(Node *n1, Node *n2) {
 		ft::swap(n1->color, n2->color);
 		if (n1->left) {
@@ -275,7 +291,7 @@ namespace ft {
 		ft::swap(n1->parent, n2->parent);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::rotate_left(Node *&root, Node *x) {
 		Node *y = x->right;
 		x->right = y->left;
@@ -297,7 +313,7 @@ namespace ft {
 		x->parent = y;
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::rotate_right(Node *&root, Node *y) {
 		Node *x = y->left;
 		y->left = x->right;
@@ -319,7 +335,7 @@ namespace ft {
 		y->parent = x;
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::insert_node(Node *&root, Node *node) {
 		Node *x = root;
 		Node *y = NULL;
@@ -346,7 +362,7 @@ namespace ft {
 		fix_insert_tree(root, node);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::fix_insert_tree(Node *&root, Node *node) {
 		Node *parent = node->parent;
 		while (node != RBTree::_root && parent->color == Red) {
@@ -394,9 +410,9 @@ namespace ft {
 
 
 	// Search
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::Node
-		*RBTree<T, Compare, Allocator>::search(Node *node, const T &key) const {
+	*RBTree<T, Compare, Allocator>::search(Node *node, const T &key) const {
 		if (node != NULL) {
 			if (_comp(key, node->value)) {
 				return search(node->left, key);
@@ -409,16 +425,16 @@ namespace ft {
 		return NULL;
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::Node
-		*RBTree<T, Compare, Allocator>::search(const T &key) {
+	*RBTree<T, Compare, Allocator>::search(const T &key) {
 		return search(_root, key);
 	}
 
 	// Delete
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::size_type
-			RBTree<T, Compare, Allocator>::remove_node(const T &key) {
+	RBTree<T, Compare, Allocator>::remove_node(const T &key) {
 		Node *node = search(_root, key);
 		if (node != NULL) {
 			remove_node(_root, node);
@@ -427,7 +443,7 @@ namespace ft {
 		return 0;
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::remove_node(Node *&root, Node *node) {
 		Node *child;
 		Node *parent;
@@ -495,7 +511,7 @@ namespace ft {
 		destroy_node(node);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::fix_remove_tree(Node *&root, Node *node, Node *parent) {
 		Node *othernode;
 		while ((!node) || (node->color == Black && node != RBTree::_root)) {
@@ -554,19 +570,19 @@ namespace ft {
 		}
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::iterator RBTree<T, Compare, Allocator>::find(const T &key) {
 		return iterator(search(_root, key));
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::const_iterator RBTree<T, Compare, Allocator>::find(const T &key) const {
 		return const_iterator(search(_root, key));
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::iterator RBTree<T, Compare, Allocator>::insert(typename RBTree<T, Compare,
-					Allocator>::iterator, const T &value) {
+			Allocator>::iterator, const T &value) {
 		Node *node = create_new_node(value);
 		if (search(value) != NULL) {
 			destroy_node(node);
@@ -577,17 +593,16 @@ namespace ft {
 		return iterator(node);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	ft::pair<typename RBTree<T, Compare, Allocator>::iterator, bool> RBTree<T, Compare,
-			Allocator>::insert(const T& value, OperType type) {
+			Allocator>::insert(const T &value, OperType type) {
 		Node *node = create_new_node(value);
 		if (search(value) != NULL) {
 			if (type == Insert) {
 				destroy_node(node);
 				_size++;
 				return ft::make_pair(iterator(_root), false);
-			}
-			else if (type == Braces) {
+			} else if (type == Braces) {
 				erase(value);
 			}
 		}
@@ -596,22 +611,22 @@ namespace ft {
 		return ft::make_pair(iterator(node), true);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	template<class InputIterator>
 	void RBTree<T, Compare, Allocator>::insert(typename ft::enable_if<!ft::is_integral<InputIterator>::value,
-											InputIterator>::type first, InputIterator last) {
+			InputIterator>::type first, InputIterator last) {
 		while (first != last) {
 			insert(*first, Insert);
 			first++;
 		}
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::erase(typename RBTree<T, Compare, Allocator>::iterator pos) {
 		remove_node(*pos);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	void RBTree<T, Compare, Allocator>::erase(iterator first, iterator last) {
 		while (first != last) {
 			remove_node(*first);
@@ -619,29 +634,29 @@ namespace ft {
 		}
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::size_type
-	        RBTree<T, Compare, Allocator>::erase(const value_type &key) {
+	RBTree<T, Compare, Allocator>::erase(const value_type &key) {
 		return remove_node(key);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	ft::pair<typename RBTree<T, Compare, Allocator>::iterator,
-		typename RBTree<T, Compare, Allocator>::iterator>
-		RBTree<T, Compare, Allocator>::equal_range(const T &key) {
+			typename RBTree<T, Compare, Allocator>::iterator>
+	RBTree<T, Compare, Allocator>::equal_range(const T &key) {
 		return ft::make_pair(this->lower_bound(key), this->upper_bound(key));
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	ft::pair<typename RBTree<T, Compare, Allocator>::const_iterator,
-		typename RBTree<T, Compare, Allocator>::const_iterator>
-		RBTree<T, Compare, Allocator>::equal_range(const T &key) const {
+			typename RBTree<T, Compare, Allocator>::const_iterator>
+	RBTree<T, Compare, Allocator>::equal_range(const T &key) const {
 		return ft::make_pair(this->lower_bound(key), this->upper_bound(key));
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::iterator
-	        RBTree<T, Compare, Allocator>::lower_bound(const T &key) {
+	RBTree<T, Compare, Allocator>::lower_bound(const T &key) {
 		Node *node = _root;
 		Node *res = NULL;
 
@@ -659,9 +674,9 @@ namespace ft {
 		return iterator(res);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::const_iterator
-	        RBTree<T, Compare, Allocator>::lower_bound(const T &key) const {
+	RBTree<T, Compare, Allocator>::lower_bound(const T &key) const {
 		Node *node = _root;
 		Node *res = NULL;
 
@@ -672,16 +687,16 @@ namespace ft {
 			} else if (not _comp(node->value, key)) {
 				res = node;
 				node = node->left;
-			} else{
+			} else {
 				node = node->right;
 			}
 		}
 		return const_iterator(res);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::iterator
-	        RBTree<T, Compare, Allocator>::upper_bound(const T &key) {
+	RBTree<T, Compare, Allocator>::upper_bound(const T &key) {
 		Node *node = _root;
 		Node *res = NULL;
 
@@ -696,9 +711,9 @@ namespace ft {
 		return iterator(res);
 	}
 
-	template <class T, class Compare, class Allocator>
+	template<class T, class Compare, class Allocator>
 	typename RBTree<T, Compare, Allocator>::const_iterator
-	        RBTree<T, Compare, Allocator>::upper_bound(const T &key) const {
+	RBTree<T, Compare, Allocator>::upper_bound(const T &key) const {
 		Node *node = _root;
 		Node *res = NULL;
 

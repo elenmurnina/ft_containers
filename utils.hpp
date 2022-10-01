@@ -11,7 +11,7 @@ namespace ft {
 		b = tmp;
 	}
 
-	template <class InputIteratorA, class InputIteratorB>
+	template<class InputIteratorA, class InputIteratorB>
 	bool equal(InputIteratorA first1, InputIteratorA last1, InputIteratorB first2) {
 		while (first1 != last1) {
 			if (*first1 != *first2) {

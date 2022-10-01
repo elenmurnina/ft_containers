@@ -9,58 +9,58 @@
 
 namespace ft {
 
-	template <class Key,
-			class Compare = std::less<Key>,
-			class Allocator = std::allocator<Key>
+	template<class Key,
+			class Compare = std::less <Key>,
+			class Allocator = std::allocator <Key>
 	>
 	class set {
 	public:
-		typedef	Key									key_type;
-		typedef	Key									value_type;
-		typedef	std::size_t							size_type;
-		typedef	Compare								key_compare;
-		typedef	Allocator							allocator_type;
-		typedef	value_type							&reference;
-		typedef	const value_type					&const_reference;
-		typedef	typename Allocator::pointer			pointer;
-		typedef typename Allocator::const_pointer	const_pointer;
+		typedef Key key_type;
+		typedef Key value_type;
+		typedef std::size_t size_type;
+		typedef Compare key_compare;
+		typedef Allocator allocator_type;
+		typedef value_type &reference;
+		typedef const value_type &const_reference;
+		typedef typename Allocator::pointer pointer;
+		typedef typename Allocator::const_pointer const_pointer;
 
-		typedef typename ft::RBTree<Key, Compare, Allocator>::iterator					iterator;
-		typedef typename ft::RBTree<Key, Compare, Allocator>::const_iterator			const_iterator;
-		typedef	typename ft::RBTree<Key, Compare, Allocator>::reverse_iterator			reverse_iterator;
-		typedef	typename ft::RBTree<Key, Compare, Allocator>::const_reverse_iterator	const_reverse_iterator;
+		typedef typename ft::RBTree<Key, Compare, Allocator>::iterator iterator;
+		typedef typename ft::RBTree<Key, Compare, Allocator>::const_iterator const_iterator;
+		typedef typename ft::RBTree<Key, Compare, Allocator>::reverse_iterator reverse_iterator;
+		typedef typename ft::RBTree<Key, Compare, Allocator>::const_reverse_iterator const_reverse_iterator;
 
-		typedef	typename iterator_traits<iterator>::difference_type	difference_type;
+		typedef typename iterator_traits<iterator>::difference_type difference_type;
 
 		class value_compare : std::binary_function<value_type, value_type, bool> {
 		protected:
 			Compare comp;
 
-			value_compare (Compare c): comp(c) {
+			value_compare(Compare c) : comp(c) {
 			}
 
 		public:
-			bool operator () (const value_type &a, const value_type &b) const {
+			bool operator()(const value_type &a, const value_type &b) const {
 				return comp(a.first, b.first);
 			}
 		};
 
 	private:
-		ft::RBTree<Key, Compare, Allocator>	_tree;
+		ft::RBTree<Key, Compare, Allocator> _tree;
 
 	public:
-		set(): _tree() {
+		set() : _tree() {
 		}
 
-		explicit set(const Compare &comp, const Allocator &alloc = Allocator()): _tree(comp, alloc) {
+		explicit set(const Compare &comp, const Allocator &alloc = Allocator()) : _tree(comp, alloc) {
 		}
 
-		set(const set &other): _tree(other._tree) {
+		set(const set &other) : _tree(other._tree) {
 		}
 
 		template<class InputIterator>
 		set(typename ft::enable_if<!ft::is_integral<InputIterator>::value,
-			InputIterator>::type first, InputIterator last,
+				InputIterator>::type first, InputIterator last,
 			const Compare &comp = Compare(), const Allocator &alloc = Allocator()) {
 			while (first != last) {
 				_tree.insert(*first, Insert);
@@ -71,7 +71,7 @@ namespace ft {
 		~set() {
 		}
 
-		set &operator = (const set &other) {
+		set &operator=(const set &other) {
 			_tree = other._tree;
 			return *this;
 		}
@@ -124,7 +124,7 @@ namespace ft {
 			return _tree.rend();
 		}
 
-		ft::pair<iterator,bool> insert(const value_type &value) {
+		ft::pair<iterator, bool> insert(const value_type &value) {
 			return _tree.insert(value, Insert);
 		}
 
@@ -134,7 +134,7 @@ namespace ft {
 
 		template<class InputIterator>
 		void insert(typename ft::enable_if<!ft::is_integral<InputIterator>::value,
-					InputIterator>::type first, InputIterator last) {
+				InputIterator>::type first, InputIterator last) {
 			_tree.insert(first, last);
 		}
 
@@ -158,11 +158,11 @@ namespace ft {
 			return _tree.find(key);
 		}
 
-		ft::pair<iterator,iterator> equal_range(const value_type &key) {
+		ft::pair<iterator, iterator> equal_range(const value_type &key) {
 			return _tree.equal_range(key);
 		}
 
-		ft::pair<const_iterator,const_iterator> equal_range(const value_type &key) const {
+		ft::pair<const_iterator, const_iterator> equal_range(const value_type &key) const {
 			return _tree.equal_range(key);
 		}
 
@@ -209,7 +209,7 @@ namespace ft {
 	};
 
 	template<class T, class Compare, class Allocator>
-	bool operator == (const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
+	bool operator==(const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
 		if (a.size() != b.size()) {
 			return false;
 		} else {
@@ -218,27 +218,27 @@ namespace ft {
 	}
 
 	template<class T, class Compare, class Allocator>
-	bool operator != (const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
+	bool operator!=(const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
 		return !(a == b);
 	}
 
 	template<class T, class Compare, class Allocator>
-	bool operator < (const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
+	bool operator<(const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
 		return ft::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
 	}
 
 	template<class T, class Compare, class Allocator>
-	bool operator <= (const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
+	bool operator<=(const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
 		return !(b < a);
 	}
 
 	template<class T, class Compare, class Allocator>
-	bool operator > (const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
+	bool operator>(const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
 		return b < a;
 	}
 
 	template<class T, class Compare, class Allocator>
-	bool operator >= (const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
+	bool operator>=(const set<T, Compare, Allocator> &a, const set<T, Compare, Allocator> &b) {
 		return !(a < b);
 	}
 }

@@ -5,23 +5,25 @@
 #include "utils.hpp"
 
 namespace ft {
-	template< class T, class Container = ft::vector<T> >
+	template<class T, class Container = ft::vector<T> >
 	class stack {
 	public:
-		typedef Container							container_type;
-		typedef typename Container::value_type		value_type;
-		typedef typename Container::size_type		size_type;
-		typedef typename Container::reference		reference;
-		typedef typename Container::const_reference	const_reference;
+		typedef Container container_type;
+		typedef typename Container::value_type value_type;
+		typedef typename Container::size_type size_type;
+		typedef typename Container::reference reference;
+		typedef typename Container::const_reference const_reference;
 
-		explicit stack(const Container& cont = Container()): _c(cont) {
+		explicit stack(const Container &cont = Container()) : _c(cont) {
 		};
-		stack(const stack& other): _c(other._c) {
+
+		stack(const stack &other) : _c(other._c) {
 		};
+
 		~stack() {
 		};
 
-		stack &operator = (const stack &other) {
+		stack &operator=(const stack &other) {
 			_c = other._c;
 			return *this;
 		}
@@ -54,33 +56,33 @@ namespace ft {
 		}
 
 		// Non-member functions
-		friend bool operator == (const ft::stack<T,Container> &a,
-								 const ft::stack<T,Container> &b) {
+		friend bool operator==(const ft::stack<T, Container> &a,
+							   const ft::stack<T, Container> &b) {
 			return a._c == b._c;
 		}
 
-		friend bool operator != (const ft::stack<T,Container> &a,
-								 const ft::stack<T,Container> &b) {
+		friend bool operator!=(const ft::stack<T, Container> &a,
+							   const ft::stack<T, Container> &b) {
 			return a._c != b._c;
 		}
 
-		friend bool operator < (const ft::stack<T,Container> &a,
-							    const ft::stack<T,Container> &b) {
+		friend bool operator<(const ft::stack<T, Container> &a,
+							  const ft::stack<T, Container> &b) {
 			return a._c < b._c;
 		}
 
-		friend bool operator <= (const ft::stack<T,Container> &a,
-								 const ft::stack<T,Container> &b) {
+		friend bool operator<=(const ft::stack<T, Container> &a,
+							   const ft::stack<T, Container> &b) {
 			return a._c <= b._c;
 		}
 
-		friend bool operator > (const ft::stack<T,Container> &a,
-								const ft::stack<T,Container> &b) {
+		friend bool operator>(const ft::stack<T, Container> &a,
+							  const ft::stack<T, Container> &b) {
 			return a._c > b._c;
 		}
 
-		friend bool operator >= (const ft::stack<T,Container> &a,
-								 const ft::stack<T,Container> &b) {
+		friend bool operator>=(const ft::stack<T, Container> &a,
+							   const ft::stack<T, Container> &b) {
 			return a._c >= b._c;
 		}
 

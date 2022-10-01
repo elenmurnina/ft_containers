@@ -3,18 +3,18 @@
 
 namespace ft {
 
-	template <class T1, class T2>
+	template<class T1, class T2>
 	struct pair {
 		typedef T1 first_type;
 		typedef T2 second_type;
 
-		T1	first;
-		T2	second;
+		T1 first;
+		T2 second;
 
-		pair(): first(), second() {
+		pair() : first(), second() {
 		}
 
-		pair(const T1 &a, const T2 &b): first(a), second(b) {
+		pair(const T1 &a, const T2 &b) : first(a), second(b) {
 		}
 
 		template<class U1, class U2>
@@ -28,7 +28,7 @@ namespace ft {
 	}
 
 	template<class T1, class T2>
-	bool operator == (const pair<T1, T2> &a, const pair<T1, T2> &b) {
+	bool operator==(const pair<T1, T2> &a, const pair<T1, T2> &b) {
 		if (a.first == b.first && a.second == b.second) {
 			return true;
 		} else {
@@ -37,7 +37,7 @@ namespace ft {
 	}
 
 	template<class T1, class T2>
-	bool operator != (const pair<T1, T2> &a, const pair<T1, T2> &b) {
+	bool operator!=(const pair<T1, T2> &a, const pair<T1, T2> &b) {
 		if (a.first != b.first || a.second != b.second) {
 			return true;
 		} else {
@@ -46,22 +46,22 @@ namespace ft {
 	}
 
 	template<class T1, class T2>
-	bool operator < (const pair<T1, T2> &a, const pair<T1, T2> &b) {
+	bool operator<(const pair<T1, T2> &a, const pair<T1, T2> &b) {
 		return (a.first < b.first || (!(b.first < a.first) && a.second < b.second));
 	}
 
 	template<class T1, class T2>
-	bool operator > (const pair<T1, T2> &a, const pair<T1, T2> &b) {
+	bool operator>(const pair<T1, T2> &a, const pair<T1, T2> &b) {
 		return b < a;
 	}
 
 	template<class T1, class T2>
-	bool operator <= (const pair<T1, T2> &a, const pair<T1, T2> &b) {
+	bool operator<=(const pair<T1, T2> &a, const pair<T1, T2> &b) {
 		return !(b < a);
 	}
 
 	template<class T1, class T2>
-	bool operator >= (const pair<T1, T2> &a, const pair<T1, T2> &b) {
+	bool operator>=(const pair<T1, T2> &a, const pair<T1, T2> &b) {
 		return !(a < b);
 	}
 }

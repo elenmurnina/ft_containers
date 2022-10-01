@@ -8,16 +8,16 @@ namespace ft {
 		Red
 	};
 
-	template <class T>
+	template<class T>
 	struct RBTNode {
-		T			value;
-		RBTColor	color;
-		RBTNode		*left;
-		RBTNode		*right;
-		RBTNode		*parent;
+		T value;
+		RBTColor color;
+		RBTNode *left;
+		RBTNode *right;
+		RBTNode *parent;
 
 		RBTNode(const T &value, RBTColor color = Red, RBTNode *left = NULL,
-				RBTNode *right = NULL, RBTNode *parent = NULL):
+				RBTNode *right = NULL, RBTNode *parent = NULL) :
 				value(value), color(color), left(left), right(right), parent(parent) {
 		};
 	};

@@ -12,15 +12,15 @@ namespace ft {
 	struct output_iterator_tag {
 	};
 
-	struct forward_iterator_tag:
+	struct forward_iterator_tag :
 			public input_iterator_tag {
 	};
 
-	struct bidirectional_iterator_tag:
+	struct bidirectional_iterator_tag :
 			public forward_iterator_tag {
 	};
 
-	struct random_access_iterator_tag:
+	struct random_access_iterator_tag :
 			public bidirectional_iterator_tag {
 	};
 
@@ -30,122 +30,122 @@ namespace ft {
 			class Pointer = T *,
 			class Reference = T &>
 	struct iterator {
-		typedef Category	iterator_category;
-		typedef T 			value_type;
-		typedef Distance	difference_type;
-		typedef Pointer		pointer;
-		typedef Reference	reference;
+		typedef Category iterator_category;
+		typedef T value_type;
+		typedef Distance difference_type;
+		typedef Pointer pointer;
+		typedef Reference reference;
 	};
 
 	// RandomAccessIterator
-	template <class T>
-	class RandomAccessIterator:
+	template<class T>
+	class RandomAccessIterator :
 			public ft::iterator<std::random_access_iterator_tag, T> {
 	public:
-		typedef typename ft::iterator<std::random_access_iterator_tag, T>   iterator;
-		typedef typename ft::iterator_traits<iterator>::difference_type		difference_type;
-		typedef typename ft::iterator_traits<iterator>::reference			reference;
-		typedef typename ft::iterator_traits<iterator>::pointer				pointer;
+		typedef typename ft::iterator<std::random_access_iterator_tag, T> iterator;
+		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
+		typedef typename ft::iterator_traits<iterator>::reference reference;
+		typedef typename ft::iterator_traits<iterator>::pointer pointer;
 
-		RandomAccessIterator(): ptr(NULL) {
+		RandomAccessIterator() : ptr(NULL) {
 		};
 
-		RandomAccessIterator(T *ptr): ptr(ptr) {
+		RandomAccessIterator(T *ptr) : ptr(ptr) {
 		};
 
 		RandomAccessIterator(const RandomAccessIterator &other) {
 			*this = other;
 		};
 
-		RandomAccessIterator &operator = (const RandomAccessIterator &other) {
+		RandomAccessIterator &operator=(const RandomAccessIterator &other) {
 			ptr = other.ptr;
 			return *this;
 		};
 
-		reference operator * () {
+		reference operator*() {
 			return *ptr;
 		}
 
-		pointer operator -> () {
+		pointer operator->() {
 			return ptr;
 		}
 
-		RandomAccessIterator &operator ++ () {
+		RandomAccessIterator &operator++() {
 			ptr++;
 			return *this;
 		}
 
-		RandomAccessIterator operator ++ (int) {
+		RandomAccessIterator operator++(int) {
 			RandomAccessIterator result = *this;
 			ptr++;
 			return result;
 		}
 
-		RandomAccessIterator &operator -- () {
+		RandomAccessIterator &operator--() {
 			ptr--;
 			return *this;
 		}
 
-		RandomAccessIterator operator -- (int) {
+		RandomAccessIterator operator--(int) {
 			RandomAccessIterator result = *this;
 			ptr--;
 			return result;
 		}
 
-		RandomAccessIterator& operator += (difference_type n) {
+		RandomAccessIterator &operator+=(difference_type n) {
 			ptr += n;
 			return *this;
 		}
 
-		RandomAccessIterator operator + (difference_type n) {
+		RandomAccessIterator operator+(difference_type n) {
 			RandomAccessIterator result = *this;
 			result += n;
 			return result;
 		}
 
-		RandomAccessIterator& operator -= (difference_type n) {
+		RandomAccessIterator &operator-=(difference_type n) {
 			ptr -= n;
 			return *this;
 		}
 
-		RandomAccessIterator operator - (difference_type n) {
+		RandomAccessIterator operator-(difference_type n) {
 			RandomAccessIterator copy = *this;
 			copy -= n;
 			return copy;
 		}
 
-		friend difference_type operator - (const RandomAccessIterator &a,
-										   const RandomAccessIterator &b) {
+		friend difference_type operator-(const RandomAccessIterator &a,
+										 const RandomAccessIterator &b) {
 			return a.ptr - b.ptr;
 		}
 
-		friend bool operator == (const RandomAccessIterator &a,
-								 const RandomAccessIterator &b) {
+		friend bool operator==(const RandomAccessIterator &a,
+							   const RandomAccessIterator &b) {
 			return a.ptr == b.ptr;
 		}
 
-		friend bool operator != (const RandomAccessIterator &a,
-								 const RandomAccessIterator &b) {
+		friend bool operator!=(const RandomAccessIterator &a,
+							   const RandomAccessIterator &b) {
 			return a.ptr != b.ptr;
 		}
 
-		friend bool operator > (const RandomAccessIterator &a,
-								const RandomAccessIterator &b) {
+		friend bool operator>(const RandomAccessIterator &a,
+							  const RandomAccessIterator &b) {
 			return a.ptr > b.ptr;
 		}
 
-		friend bool operator >= (const RandomAccessIterator &a,
-								 const RandomAccessIterator &b) {
+		friend bool operator>=(const RandomAccessIterator &a,
+							   const RandomAccessIterator &b) {
 			return a.ptr >= b.ptr;
 		}
 
-		friend bool operator < (const RandomAccessIterator &a,
-								const RandomAccessIterator &b) {
+		friend bool operator<(const RandomAccessIterator &a,
+							  const RandomAccessIterator &b) {
 			return a.ptr < b.ptr;
 		}
 
-		friend bool operator <= (const RandomAccessIterator &a,
-								 const RandomAccessIterator &b) {
+		friend bool operator<=(const RandomAccessIterator &a,
+							   const RandomAccessIterator &b) {
 			return a.ptr <= b.ptr;
 		}
 
@@ -153,116 +153,116 @@ namespace ft {
 		T *ptr;
 	};
 
-	template <class T>
-	class RandomAccessConstIterator:
+	template<class T>
+	class RandomAccessConstIterator :
 			public ft::iterator<std::random_access_iterator_tag, T,
 					std::ptrdiff_t, const T *, const T &> {
 	public:
 		typedef typename ft::iterator<std::random_access_iterator_tag,
-				T, std::ptrdiff_t, const T *, const T &>	iterator;
-		typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
-		typedef typename ft::iterator_traits<iterator>::reference		reference;
-		typedef typename ft::iterator_traits<iterator>::pointer			pointer;
+				T, std::ptrdiff_t, const T *, const T &> iterator;
+		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
+		typedef typename ft::iterator_traits<iterator>::reference reference;
+		typedef typename ft::iterator_traits<iterator>::pointer pointer;
 
-		RandomAccessConstIterator(): ptr(NULL) {
+		RandomAccessConstIterator() : ptr(NULL) {
 		};
 
-		RandomAccessConstIterator(T *ptr): ptr(ptr) {
+		RandomAccessConstIterator(T *ptr) : ptr(ptr) {
 		};
 
 		RandomAccessConstIterator(const RandomAccessConstIterator &other) {
 			*this = other;
 		};
 
-		RandomAccessConstIterator& operator = (const RandomAccessConstIterator &other) {
+		RandomAccessConstIterator &operator=(const RandomAccessConstIterator &other) {
 			ptr = other.ptr;
 			return *this;
 		};
 
-		reference operator * () const {
+		reference operator*() const {
 			return *ptr;
 		}
 
-		pointer operator -> () const {
+		pointer operator->() const {
 			return ptr;
 		}
 
-		RandomAccessConstIterator& operator ++ () {
+		RandomAccessConstIterator &operator++() {
 			ptr++;
 			return *this;
 		}
 
-		RandomAccessConstIterator operator ++ (int) {
+		RandomAccessConstIterator operator++(int) {
 			RandomAccessConstIterator result = *this;
 			ptr++;
 			return result;
 		}
 
-		RandomAccessConstIterator &operator -- () {
+		RandomAccessConstIterator &operator--() {
 			ptr--;
 			return *this;
 		}
 
-		RandomAccessConstIterator operator -- (int) {
+		RandomAccessConstIterator operator--(int) {
 			RandomAccessConstIterator result = *this;
 			ptr--;
 			return result;
 		}
 
-		RandomAccessConstIterator& operator += (difference_type n) {
+		RandomAccessConstIterator &operator+=(difference_type n) {
 			ptr += n;
 			return *this;
 		}
 
-		RandomAccessConstIterator operator + (difference_type n) {
+		RandomAccessConstIterator operator+(difference_type n) {
 			RandomAccessConstIterator result = *this;
 			result += n;
 			return result;
 		}
 
-		RandomAccessConstIterator &operator -= (difference_type n) {
+		RandomAccessConstIterator &operator-=(difference_type n) {
 			ptr -= n;
 			return *this;
 		}
 
-		RandomAccessConstIterator operator - (difference_type n) {
+		RandomAccessConstIterator operator-(difference_type n) {
 			RandomAccessConstIterator result = *this;
 			result -= n;
 			return result;
 		}
 
-		friend difference_type operator - (const RandomAccessConstIterator &a,
-										   const RandomAccessConstIterator &b) {
+		friend difference_type operator-(const RandomAccessConstIterator &a,
+										 const RandomAccessConstIterator &b) {
 			return a.ptr - b.ptr;
 		}
 
-		friend bool operator == (const RandomAccessConstIterator &a,
-								 const RandomAccessConstIterator &b) {
+		friend bool operator==(const RandomAccessConstIterator &a,
+							   const RandomAccessConstIterator &b) {
 			return a.ptr == b.ptr;
 		}
 
-		friend bool operator != (const RandomAccessConstIterator &a,
-								 const RandomAccessConstIterator &b) {
+		friend bool operator!=(const RandomAccessConstIterator &a,
+							   const RandomAccessConstIterator &b) {
 			return a.ptr != b.ptr;
 		}
 
-		friend bool operator > (const RandomAccessConstIterator &a,
-								const RandomAccessConstIterator &b) {
+		friend bool operator>(const RandomAccessConstIterator &a,
+							  const RandomAccessConstIterator &b) {
 			return a.ptr > b.ptr;
 		}
 
-		friend bool operator >= (const RandomAccessConstIterator &a,
-								 const RandomAccessConstIterator &b) {
+		friend bool operator>=(const RandomAccessConstIterator &a,
+							   const RandomAccessConstIterator &b) {
 			return a.ptr >= b.ptr;
 		}
 
-		friend bool operator < (const RandomAccessConstIterator &a,
-								const RandomAccessConstIterator &b) {
+		friend bool operator<(const RandomAccessConstIterator &a,
+							  const RandomAccessConstIterator &b) {
 			return a.ptr < b.ptr;
 		}
 
-		friend bool operator <= (const RandomAccessConstIterator &a,
-								 const RandomAccessConstIterator &b) {
+		friend bool operator<=(const RandomAccessConstIterator &a,
+							   const RandomAccessConstIterator &b) {
 			return a.ptr <= b.ptr;
 		}
 
@@ -271,111 +271,114 @@ namespace ft {
 	};
 
 	// RandomAccessReverseIterator
-	template <class T>
-	class RandomAccessReverseIterator:
+	template<class T>
+	class RandomAccessReverseIterator :
 			public ft::iterator<std::random_access_iterator_tag, T> {
 	public:
-		typedef typename ft::iterator<std::random_access_iterator_tag, T>   iterator;
-		typedef typename ft::iterator_traits<iterator>::difference_type		difference_type;
-		typedef typename ft::iterator_traits<iterator>::reference			reference;
-		typedef typename ft::iterator_traits<iterator>::pointer				pointer;
+		typedef typename ft::iterator<std::random_access_iterator_tag, T> iterator;
+		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
+		typedef typename ft::iterator_traits<iterator>::reference reference;
+		typedef typename ft::iterator_traits<iterator>::pointer pointer;
 
-		RandomAccessReverseIterator(): ptr(NULL) {
+		RandomAccessReverseIterator() : ptr(NULL) {
 		};
 
-		RandomAccessReverseIterator(T *ptr): ptr(ptr) {
+		RandomAccessReverseIterator(T *ptr) : ptr(ptr) {
 		};
 
 		RandomAccessReverseIterator(const RandomAccessReverseIterator &other) {
 			*this = other;
 		};
 
-		RandomAccessReverseIterator& operator = (const RandomAccessReverseIterator &other) {
+		RandomAccessReverseIterator &operator=(const RandomAccessReverseIterator &other) {
 			ptr = other.ptr;
 			return *this;
 		};
 
-		reference operator * () {
+		reference operator*() {
 			return *ptr;
 		}
 
-		pointer operator -> () {
+		pointer operator->() {
 			return ptr;
 		}
 
-		RandomAccessReverseIterator operator ++ () {
+		RandomAccessReverseIterator operator++() {
 			ptr--;
 			return *this;
 		}
 
-		RandomAccessReverseIterator operator ++ (int) {
+		RandomAccessReverseIterator operator++(int) {
 			RandomAccessReverseIterator result = *this;
 			ptr--;
 			return result;
 		}
 
-		RandomAccessReverseIterator operator -- () {
+		RandomAccessReverseIterator operator--() {
 			ptr++;
 			return *this;
 		}
 
-		RandomAccessReverseIterator operator -- (int) {
+		RandomAccessReverseIterator operator--(int) {
 			RandomAccessReverseIterator result = *this;
 			ptr++;
 			return result;
 		}
 
-		RandomAccessReverseIterator& operator += (difference_type n) {
+		RandomAccessReverseIterator &operator+=(difference_type n) {
 			ptr -= n;
 			return *this;
 		}
 
-		RandomAccessReverseIterator operator + (difference_type n) {
+		RandomAccessReverseIterator operator+(difference_type n) {
 			RandomAccessReverseIterator result = *this;
 			result += n;
 			return result;
 		}
 
-		RandomAccessReverseIterator& operator -= (difference_type n) {
+		RandomAccessReverseIterator &operator-=(difference_type n) {
 			ptr += n;
 			return *this;
 		}
 
-		RandomAccessReverseIterator operator - (difference_type n) {
+		RandomAccessReverseIterator operator-(difference_type n) {
 			RandomAccessReverseIterator result = *this;
 			result -= n;
 			return result;
 		}
 
-		friend difference_type operator - (const RandomAccessReverseIterator &a,
-										   const RandomAccessReverseIterator &b) {
+		friend difference_type operator-(const RandomAccessReverseIterator &a,
+										 const RandomAccessReverseIterator &b) {
 			return b.ptr - a.ptr;
 		}
 
-		friend bool operator == (const RandomAccessReverseIterator &a,
-								 const RandomAccessReverseIterator &b) {
+		friend bool operator==(const RandomAccessReverseIterator &a,
+							   const RandomAccessReverseIterator &b) {
 			return a.ptr == b.ptr;
 		}
 
-		friend bool operator != (const RandomAccessReverseIterator &a,
-								 const RandomAccessReverseIterator &b) {
+		friend bool operator!=(const RandomAccessReverseIterator &a,
+							   const RandomAccessReverseIterator &b) {
 			return a.ptr != b.ptr;
 		}
 
-		friend bool operator > (const RandomAccessReverseIterator &a,
-								const RandomAccessReverseIterator &b)  {
+		friend bool operator>(const RandomAccessReverseIterator &a,
+							  const RandomAccessReverseIterator &b) {
 			return a.ptr < b.ptr;
 		}
-		friend bool operator >= (const RandomAccessReverseIterator &a,
-								 const RandomAccessReverseIterator &b)  {
+
+		friend bool operator>=(const RandomAccessReverseIterator &a,
+							   const RandomAccessReverseIterator &b) {
 			return a.ptr <= b.ptr;
 		}
-		friend bool operator < (const RandomAccessReverseIterator &a,
-								const RandomAccessReverseIterator &b)  {
+
+		friend bool operator<(const RandomAccessReverseIterator &a,
+							  const RandomAccessReverseIterator &b) {
 			return a.ptr > b.ptr;
 		}
-		friend bool operator <= (const RandomAccessReverseIterator &a,
-								 const RandomAccessReverseIterator &b)  {
+
+		friend bool operator<=(const RandomAccessReverseIterator &a,
+							   const RandomAccessReverseIterator &b) {
 			return a.ptr >= b.ptr;
 		}
 
@@ -383,116 +386,116 @@ namespace ft {
 		T *ptr;
 	};
 
-	template <class T>
-	class RandomAccessConstReverseIterator:
+	template<class T>
+	class RandomAccessConstReverseIterator :
 			public ft::iterator<std::random_access_iterator_tag, T,
 					std::ptrdiff_t, const T *, const T &> {
 	public:
 		typedef typename ft::iterator<std::random_access_iterator_tag,
-				T, std::ptrdiff_t, const T *, const T &>		iterator;
-		typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
-		typedef typename ft::iterator_traits<iterator>::reference		reference;
-		typedef typename ft::iterator_traits<iterator>::pointer			pointer;
+				T, std::ptrdiff_t, const T *, const T &> iterator;
+		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
+		typedef typename ft::iterator_traits<iterator>::reference reference;
+		typedef typename ft::iterator_traits<iterator>::pointer pointer;
 
-		RandomAccessConstReverseIterator(): ptr(NULL) {
+		RandomAccessConstReverseIterator() : ptr(NULL) {
 		};
 
-		RandomAccessConstReverseIterator(T *ptr): ptr(ptr) {
+		RandomAccessConstReverseIterator(T *ptr) : ptr(ptr) {
 		};
 
 		RandomAccessConstReverseIterator(const RandomAccessConstReverseIterator &other) {
 			*this = other;
 		};
 
-		RandomAccessConstReverseIterator& operator = (const RandomAccessConstReverseIterator &other) {
+		RandomAccessConstReverseIterator &operator=(const RandomAccessConstReverseIterator &other) {
 			ptr = other.ptr;
 			return *this;
 		};
 
-		reference operator * () const {
+		reference operator*() const {
 			return *ptr;
 		}
 
-		pointer operator -> () const {
+		pointer operator->() const {
 			return ptr;
 		}
 
-		RandomAccessConstReverseIterator operator ++ () {
+		RandomAccessConstReverseIterator operator++() {
 			ptr--;
 			return *this;
 		}
 
-		RandomAccessConstReverseIterator operator ++ (int) {
+		RandomAccessConstReverseIterator operator++(int) {
 			RandomAccessConstReverseIterator result = *this;
 			ptr--;
 			return result;
 		}
 
-		RandomAccessConstReverseIterator operator -- () {
+		RandomAccessConstReverseIterator operator--() {
 			ptr++;
 			return *this;
 		}
 
-		RandomAccessConstReverseIterator operator -- (int) {
+		RandomAccessConstReverseIterator operator--(int) {
 			RandomAccessConstReverseIterator result = *this;
 			ptr++;
 			return result;
 		}
 
-		RandomAccessConstReverseIterator& operator += (difference_type n) {
+		RandomAccessConstReverseIterator &operator+=(difference_type n) {
 			ptr -= n;
 			return *this;
 		}
 
-		RandomAccessConstReverseIterator operator + (difference_type n) {
+		RandomAccessConstReverseIterator operator+(difference_type n) {
 			RandomAccessConstReverseIterator result = *this;
 			result += n;
 			return result;
 		}
 
-		RandomAccessConstReverseIterator& operator -= (difference_type n) {
+		RandomAccessConstReverseIterator &operator-=(difference_type n) {
 			ptr += n;
 			return *this;
 		}
 
-		RandomAccessConstReverseIterator operator - (difference_type n) {
+		RandomAccessConstReverseIterator operator-(difference_type n) {
 			RandomAccessConstReverseIterator copy = *this;
 			copy -= n;
 			return copy;
 		}
 
-		friend difference_type operator - (const RandomAccessConstReverseIterator &a,
-										   const RandomAccessConstReverseIterator &b) {
+		friend difference_type operator-(const RandomAccessConstReverseIterator &a,
+										 const RandomAccessConstReverseIterator &b) {
 			return b.ptr - a.ptr;
 		}
 
-		friend bool operator == (const RandomAccessConstReverseIterator &a,
-								 const RandomAccessConstReverseIterator &b) {
+		friend bool operator==(const RandomAccessConstReverseIterator &a,
+							   const RandomAccessConstReverseIterator &b) {
 			return a.ptr == b.ptr;
 		}
 
-		friend bool operator != (const RandomAccessConstReverseIterator &a,
-								 const RandomAccessConstReverseIterator &b) {
+		friend bool operator!=(const RandomAccessConstReverseIterator &a,
+							   const RandomAccessConstReverseIterator &b) {
 			return a.ptr != b.ptr;
 		}
 
-		friend bool operator > (const RandomAccessConstReverseIterator &a,
-								const RandomAccessConstReverseIterator &b) {
+		friend bool operator>(const RandomAccessConstReverseIterator &a,
+							  const RandomAccessConstReverseIterator &b) {
 			return a.ptr < b.ptr;
 		}
 
-		friend bool operator >= (const RandomAccessConstReverseIterator &a,
-								 const RandomAccessConstReverseIterator &b) {
+		friend bool operator>=(const RandomAccessConstReverseIterator &a,
+							   const RandomAccessConstReverseIterator &b) {
 			return a.ptr <= b.ptr;
 		}
 
-		friend bool operator < (const RandomAccessConstReverseIterator &a,
-								const RandomAccessConstReverseIterator &b) {
+		friend bool operator<(const RandomAccessConstReverseIterator &a,
+							  const RandomAccessConstReverseIterator &b) {
 			return a.ptr > b.ptr;
 		}
 
-		friend bool operator <= (const RandomAccessConstReverseIterator &a,
-								 const RandomAccessConstReverseIterator &b) {
+		friend bool operator<=(const RandomAccessConstReverseIterator &a,
+							   const RandomAccessConstReverseIterator &b) {
 			return a.ptr >= b.ptr;
 		}
 
@@ -501,13 +504,13 @@ namespace ft {
 	};
 
 	// RBTreeIterator
-	template <class T>
-	class	RBTreeIterator:
+	template<class T>
+	class RBTreeIterator :
 			public ft::iterator<std::bidirectional_iterator_tag, T> {
 	public:
-		typedef typename ft::iterator<std::bidirectional_iterator_tag, T>   iterator;
-		typedef typename ft::iterator_traits<iterator>::reference			reference;
-		typedef typename ft::iterator_traits<iterator>::pointer				pointer;
+		typedef typename ft::iterator<std::bidirectional_iterator_tag, T> iterator;
+		typedef typename ft::iterator_traits<iterator>::reference reference;
+		typedef typename ft::iterator_traits<iterator>::pointer pointer;
 
 		typedef RBTNode<T> Node;
 
@@ -515,50 +518,50 @@ namespace ft {
 		Node *ptr;
 
 	public:
-		RBTreeIterator(): ptr(NULL) {
+		RBTreeIterator() : ptr(NULL) {
 		};
 
-		RBTreeIterator(Node *ptr): ptr(ptr) {
+		RBTreeIterator(Node *ptr) : ptr(ptr) {
 		};
 
-		RBTreeIterator(const RBTreeIterator &other): ptr(other.getptr()) {
+		RBTreeIterator(const RBTreeIterator &other) : ptr(other.getptr()) {
 		};
 
 		~RBTreeIterator() {
 		};
 
-		RBTreeIterator &operator = (const RBTreeIterator &other) {
+		RBTreeIterator &operator=(const RBTreeIterator &other) {
 			ptr = other.ptr;
 			return *this;
 		};
 
-		reference operator * () {
+		reference operator*() {
 			return ptr->value;
 		}
 
-		pointer operator -> () {
+		pointer operator->() {
 			return &(ptr->value);
 		}
 
-		RBTreeIterator& operator ++ () {
+		RBTreeIterator &operator++() {
 			ptr = next_iter(ptr);
 			return *this;
 		}
 
-		RBTreeIterator operator ++ (int) {
+		RBTreeIterator operator++(int) {
 			RBTreeIterator result = *this;
 			operator++();
 			return result;
 		}
 
-		RBTreeIterator& operator -- () {
+		RBTreeIterator &operator--() {
 			ptr = prev_iter(ptr);
 			return *this;
 		}
 
-		RBTreeIterator operator -- (int) {
+		RBTreeIterator operator--(int) {
 			RBTreeIterator result = *this;
-			operator -- ();
+			operator--();
 			return result;
 		}
 
@@ -566,11 +569,11 @@ namespace ft {
 			return ptr;
 		}
 
-		friend bool operator == (const RBTreeIterator &a, const RBTreeIterator &b) {
+		friend bool operator==(const RBTreeIterator &a, const RBTreeIterator &b) {
 			return a.ptr == b.ptr;
 		}
 
-		friend bool operator != (const RBTreeIterator &a, const RBTreeIterator &b) {
+		friend bool operator!=(const RBTreeIterator &a, const RBTreeIterator &b) {
 			return a.ptr != b.ptr;
 		}
 
@@ -616,15 +619,15 @@ namespace ft {
 		}
 	};
 
-	template <class T>
-	class RBTreeConstIterator:
+	template<class T>
+	class RBTreeConstIterator :
 			public ft::iterator<std::bidirectional_iterator_tag, T,
 					std::ptrdiff_t, const T *, const T &> {
 	public:
 		typedef typename ft::iterator<std::bidirectional_iterator_tag,
-				T, std::ptrdiff_t, const T *, const T &>  					iterator;
-		typedef typename ft::iterator_traits<iterator>::reference		reference;
-		typedef typename ft::iterator_traits<iterator>::pointer			pointer;
+				T, std::ptrdiff_t, const T *, const T &> iterator;
+		typedef typename ft::iterator_traits<iterator>::reference reference;
+		typedef typename ft::iterator_traits<iterator>::pointer pointer;
 
 		typedef RBTNode<T> Node;
 
@@ -632,50 +635,50 @@ namespace ft {
 		Node *ptr;
 
 	public:
-		RBTreeConstIterator(): ptr(NULL) {
+		RBTreeConstIterator() : ptr(NULL) {
 		};
 
-		RBTreeConstIterator(Node *ptr): ptr(ptr) {
+		RBTreeConstIterator(Node *ptr) : ptr(ptr) {
 		};
 
-		RBTreeConstIterator(const RBTreeIterator<T> &other): ptr(other.getptr()) {
+		RBTreeConstIterator(const RBTreeIterator<T> &other) : ptr(other.getptr()) {
 		};
 
 		~RBTreeConstIterator() {
 		};
 
-		RBTreeConstIterator &operator = (const RBTreeIterator<T> &other) {
+		RBTreeConstIterator &operator=(const RBTreeIterator<T> &other) {
 			ptr = other.ptr;
 			return *this;
 		};
 
-		reference operator * () const {
+		reference operator*() const {
 			return ptr->value;
 		}
 
-		pointer operator -> () const {
+		pointer operator->() const {
 			return &(ptr->value);
 		}
 
-		RBTreeConstIterator &operator ++ () {
+		RBTreeConstIterator &operator++() {
 			ptr = next_iter(ptr);
 			return *this;
 		}
 
-		RBTreeConstIterator operator ++ (int) {
+		RBTreeConstIterator operator++(int) {
 			RBTreeConstIterator result = *this;
-			operator ++ ();
+			operator++();
 			return result;
 		}
 
-		RBTreeConstIterator &operator -- () {
+		RBTreeConstIterator &operator--() {
 			ptr = prev_iter(ptr);
 			return *this;
 		}
 
-		RBTreeConstIterator operator -- (int) {
+		RBTreeConstIterator operator--(int) {
 			RBTreeConstIterator result = *this;
-			operator -- ();
+			operator--();
 			return result;
 		}
 
@@ -683,11 +686,11 @@ namespace ft {
 			return ptr;
 		}
 
-		friend bool operator == (const RBTreeConstIterator<T> &a, const RBTreeConstIterator<T> &b) {
+		friend bool operator==(const RBTreeConstIterator<T> &a, const RBTreeConstIterator<T> &b) {
 			return a.ptr == b.ptr;
 		}
 
-		friend bool operator != (const RBTreeConstIterator<T> &a, const RBTreeConstIterator<T> &b) {
+		friend bool operator!=(const RBTreeConstIterator<T> &a, const RBTreeConstIterator<T> &b) {
 			return a.ptr != b.ptr;
 		}
 
@@ -710,7 +713,7 @@ namespace ft {
 			if (node->right) {
 				return next_min_elem(node->right);
 			} else {
-				Node  *parent = node->parent;
+				Node *parent = node->parent;
 				while (parent && node == parent->right) {
 					node = parent;
 					parent = parent->parent;
@@ -723,7 +726,7 @@ namespace ft {
 			if (node->left) {
 				return prev_max_elem(node->left);
 			} else {
-				Node  *parent = node->parent;
+				Node *parent = node->parent;
 				while (parent && node == parent->left) {
 					node = parent;
 					parent = parent->parent;
@@ -734,64 +737,64 @@ namespace ft {
 	};
 
 	// RBTreeReverseIterator
-	template <class T>
-	class RBTreeReverseIterator:
+	template<class T>
+	class RBTreeReverseIterator :
 			public ft::iterator<std::bidirectional_iterator_tag, T> {
 	public:
-		typedef typename ft::iterator<std::bidirectional_iterator_tag, T>	iterator;
-		typedef typename ft::iterator_traits<iterator>::reference			reference;
-		typedef typename ft::iterator_traits<iterator>::pointer				pointer;
+		typedef typename ft::iterator<std::bidirectional_iterator_tag, T> iterator;
+		typedef typename ft::iterator_traits<iterator>::reference reference;
+		typedef typename ft::iterator_traits<iterator>::pointer pointer;
 
-		typedef RBTNode<T>	Node;
+		typedef RBTNode<T> Node;
 
 	private:
 		Node *ptr;
 
 	public:
-		RBTreeReverseIterator(): ptr(NULL) {
+		RBTreeReverseIterator() : ptr(NULL) {
 		};
 
-		RBTreeReverseIterator(Node *ptr): ptr(ptr) {
+		RBTreeReverseIterator(Node *ptr) : ptr(ptr) {
 		};
 
-		RBTreeReverseIterator(const RBTreeReverseIterator &other): ptr(other.getptr()) {
+		RBTreeReverseIterator(const RBTreeReverseIterator &other) : ptr(other.getptr()) {
 		};
 
 		~RBTreeReverseIterator() {
 		};
 
-		RBTreeReverseIterator& operator = (const RBTreeReverseIterator &other) {
+		RBTreeReverseIterator &operator=(const RBTreeReverseIterator &other) {
 			ptr = other.ptr;
 			return *this;
 		};
 
-		reference operator * () {
+		reference operator*() {
 			return ptr->value;
 		}
 
-		pointer operator -> () {
+		pointer operator->() {
 			return &(ptr->value);
 		}
 
-		RBTreeReverseIterator &operator ++ () {
+		RBTreeReverseIterator &operator++() {
 			ptr = prev_iter(ptr);
 			return *this;
 		}
 
-		RBTreeReverseIterator operator ++ (int) {
+		RBTreeReverseIterator operator++(int) {
 			RBTreeReverseIterator result = *this;
-			operator ++ ();
+			operator++();
 			return result;
 		}
 
-		RBTreeReverseIterator &operator -- () {
+		RBTreeReverseIterator &operator--() {
 			ptr = next_iter(ptr);
 			return *this;
 		}
 
-		RBTreeReverseIterator operator -- (int) {
+		RBTreeReverseIterator operator--(int) {
 			RBTreeReverseIterator result = *this;
-			operator -- ();
+			operator--();
 			return result;
 		}
 
@@ -799,11 +802,11 @@ namespace ft {
 			return ptr;
 		}
 
-		friend bool operator == (const RBTreeReverseIterator &a, const RBTreeReverseIterator &b) {
+		friend bool operator==(const RBTreeReverseIterator &a, const RBTreeReverseIterator &b) {
 			return a.ptr == b.ptr;
 		}
 
-		friend bool operator != (const RBTreeReverseIterator &a, const RBTreeReverseIterator &b) {
+		friend bool operator!=(const RBTreeReverseIterator &a, const RBTreeReverseIterator &b) {
 			return a.ptr != b.ptr;
 		}
 
@@ -849,15 +852,15 @@ namespace ft {
 		}
 	};
 
-	template <class T>
-	class RBTreeConstReverseIterator:
+	template<class T>
+	class RBTreeConstReverseIterator :
 			public ft::iterator<std::bidirectional_iterator_tag, T,
 					std::ptrdiff_t, const T *, const T &> {
 	public:
 		typedef typename ft::iterator<std::bidirectional_iterator_tag,
-				T, std::ptrdiff_t, const T *, const T &>			iterator;
-		typedef typename ft::iterator_traits<iterator>::reference			reference;
-		typedef typename ft::iterator_traits<iterator>::pointer				pointer;
+				T, std::ptrdiff_t, const T *, const T &> iterator;
+		typedef typename ft::iterator_traits<iterator>::reference reference;
+		typedef typename ft::iterator_traits<iterator>::pointer pointer;
 
 		typedef RBTNode<T> Node;
 
@@ -865,50 +868,50 @@ namespace ft {
 		Node *ptr;
 
 	public:
-		RBTreeConstReverseIterator(): ptr(NULL) {
+		RBTreeConstReverseIterator() : ptr(NULL) {
 		};
 
-		RBTreeConstReverseIterator(Node *ptr): ptr(ptr) {
+		RBTreeConstReverseIterator(Node *ptr) : ptr(ptr) {
 		};
 
-		RBTreeConstReverseIterator(const RBTreeConstReverseIterator &other): ptr(other.getptr()) {
+		RBTreeConstReverseIterator(const RBTreeConstReverseIterator &other) : ptr(other.getptr()) {
 		};
 
 		~RBTreeConstReverseIterator() {
 		};
 
-		RBTreeConstReverseIterator &operator = (const RBTreeConstReverseIterator &other) {
+		RBTreeConstReverseIterator &operator=(const RBTreeConstReverseIterator &other) {
 			ptr = other.ptr;
 			return *this;
 		};
 
-		reference operator * () {
+		reference operator*() {
 			return ptr->value;
 		}
 
-		pointer operator -> () {
+		pointer operator->() {
 			return &(ptr->value);
 		}
 
-		RBTreeConstReverseIterator& operator ++ () {
+		RBTreeConstReverseIterator &operator++() {
 			ptr = prev_iter(ptr);
 			return *this;
 		}
 
-		RBTreeConstReverseIterator operator ++ (int) {
+		RBTreeConstReverseIterator operator++(int) {
 			RBTreeConstReverseIterator result = *this;
-			operator ++ ();
+			operator++();
 			return result;
 		}
 
-		RBTreeConstReverseIterator& operator -- () {
+		RBTreeConstReverseIterator &operator--() {
 			ptr = next_iter(ptr);
 			return *this;
 		}
 
-		RBTreeConstReverseIterator operator -- (int) {
+		RBTreeConstReverseIterator operator--(int) {
 			RBTreeConstReverseIterator result = *this;
-			operator -- ();
+			operator--();
 			return result;
 		}
 
@@ -916,11 +919,11 @@ namespace ft {
 			return ptr;
 		}
 
-		friend bool operator == (const RBTreeConstReverseIterator &a, const RBTreeConstReverseIterator &b) {
+		friend bool operator==(const RBTreeConstReverseIterator &a, const RBTreeConstReverseIterator &b) {
 			return a.ptr == b.ptr;
 		}
 
-		friend bool operator != (const RBTreeConstReverseIterator &a, const RBTreeConstReverseIterator &b) {
+		friend bool operator!=(const RBTreeConstReverseIterator &a, const RBTreeConstReverseIterator &b) {
 			return a.ptr != b.ptr;
 		}
 
